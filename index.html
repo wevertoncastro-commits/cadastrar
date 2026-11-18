@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cadastrar obras para importação no sistema Citame.">
+  <title>Cadastrar · Citame</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Cadastrar - início">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v4h4M8 12h6M8 16h6"/></svg>
+        </span>
+        <span>
+          <strong>Cadastrar</strong>
+          <small>Preparador de obras do Citame</small>
+        </span>
+      </a>
+      <div class="local-badge"><span></span> Processamento no navegador</div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div class="eyebrow">Biblioteca Citame</div>
+        <h1>Prepare uma obra<br><span>para importar.</span></h1>
+        <p>Adicione até 10 PDFs, informe os dados bibliográficos e baixe tudo em um único ZIP pronto para importar no Citame.</p>
+      </section>
+
+      <section class="workspace-card" aria-labelledby="cadastro-title">
+        <div class="steps" aria-label="Etapas do cadastro">
+          <div class="step active" id="step-file"><b>1</b><span>Arquivo</span></div>
+          <div class="step-line"></div>
+          <div class="step" id="step-data"><b>2</b><span>Cadastro</span></div>
+          <div class="step-line"></div>
+          <div class="step" id="step-ready"><b>3</b><span>Pronto</span></div>
+        </div>
+
+        <div id="upload-panel" class="upload-panel">
+          <input id="pdf-input" class="sr-only" type="file" accept=".pdf,application/pdf">
+          <div class="upload-illustration" aria-hidden="true">
+            <svg viewBox="0 0 120 120">
+              <rect x="26" y="17" width="68" height="88" rx="9" class="paper"/>
+              <path d="M45 44h30M45 57h30M45 70h19" class="paper-lines"/>
+              <circle cx="86" cy="84" r="23" class="upload-circle"/>
+              <path d="m86 95V74m-9 9 9-9 9 9" class="upload-arrow"/>
+            </svg>
+          </div>
+          <h2 id="cadastro-title">Comece com o arquivo da obra</h2>
+          <p>Selecione o primeiro PDF. Depois do cadastro, você poderá adicionar outro arquivo.</p>
+          <button id="choose-file" class="primary-button" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m-4 4 4-4 4 4M5 14v5h14v-5"/></svg>
+            Importar arquivo em PDF
+          </button>
+          <small>Somente PDF · até 500 MB por arquivo · máximo de 10 obras</small>
+        </div>
+
+        <form id="metadata-form" class="metadata-form" hidden>
+          <div class="file-summary">
+            <div class="file-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6z"/><path d="M14 2v6h5"/><path d="M9 13h7M9 17h5"/></svg>
+            </div>
+            <div><strong id="selected-name"></strong><span id="selected-size"></span></div>
+            <button id="change-file" class="text-button" type="button">Trocar arquivo</button>
+          </div>
+
+          <div class="section-heading">
+            <span>01</span>
+            <div><h2>Identificação da obra</h2><p>Campos marcados com * são obrigatórios.</p></div>
+          </div>
+
+          <div class="form-grid">
+            <label class="field full">
+              <span>Tipo de obra *</span>
+              <select id="docType" name="docType" required>
+                <option value="Livro">Livro</option>
+                <option value="Artigo de Periódico">Artigo de Periódico</option>
+                <option value="Capítulo de Livro">Capítulo de Livro</option>
+                <option value="Tese/Dissertação">Tese / Dissertação</option>
+                <option value="Conferência">Conferência / Anais</option>
+                <option value="Artigo de Revista">Artigo de Revista</option>
+                <option value="Artigo de Jornal">Artigo de Jornal</option>
+                <option value="Relatório Técnico">Relatório Técnico</option>
+                <option value="Verbete de Enciclopédia">Verbete de Enciclopédia</option>
+                <option value="Página da Web">Página da Web</option>
+                <option value="Legislação / Estatuto">Legislação / Estatuto</option>
+                <option value="Jurisprudência">Jurisprudência</option>
+                <option value="Não especificado">Outro / Não especificado</option>
+              </select>
+            </label>
+            <label class="field full"><span id="title-label">Título do livro *</span><input name="title" required maxlength="500" placeholder="Ex.: Metodologia do trabalho científico"></label>
+            <label class="field"><span>Autores / responsáveis *</span><input name="authors" required maxlength="500" placeholder="Sobrenome, Nome; Sobrenome, Nome"></label>
+            <label class="field"><span>Ano de publicação *</span><input name="publicationYear" required type="number" min="1000" max="9999" inputmode="numeric" placeholder="2026"></label>
+            <label class="field" data-field="subtitle"><span>Subtítulo</span><input name="subtitle" maxlength="500"></label>
+            <label class="field" data-field="language"><span>Idioma</span><input name="language" maxlength="100" placeholder="Português"></label>
+            <label class="field full"><span>Resumo</span><textarea name="abstract" rows="4" maxlength="10000" placeholder="Descrição, resumo ou observações sobre a obra"></textarea></label>
+          </div>
+
+          <div class="section-heading">
+            <span>02</span>
+            <div><h2>Dados bibliográficos</h2><p>Preencha apenas as informações disponíveis.</p></div>
+          </div>
+
+          <div class="form-grid">
+            <label class="field" data-field="journal"><span id="journal-label">Periódico / periódico de origem</span><input name="journal" maxlength="500"></label>
+            <label class="field" data-field="publisher"><span>Editora</span><input name="publisher" maxlength="300"></label>
+            <label class="field" data-field="city"><span>Cidade</span><input name="city" maxlength="200"></label>
+            <label class="field" data-field="edition"><span>Edição</span><input name="edition" maxlength="100"></label>
+            <label class="field" data-field="series"><span>Série / coleção editorial</span><input name="series" maxlength="300"></label>
+            <label class="field" data-field="isbn"><span>ISBN</span><input name="isbn" maxlength="100"></label>
+            <label class="field" data-field="issn"><span>ISSN</span><input name="issn" maxlength="100"></label>
+            <label class="field" data-field="institution"><span>Instituição</span><input name="institution" maxlength="300"></label>
+            <label class="field" data-field="volume"><span>Volume</span><input name="volume" maxlength="100"></label>
+            <label class="field" data-field="issue"><span>Número / edição</span><input name="issue" maxlength="100"></label>
+            <label class="field" data-field="pages"><span>Páginas</span><input name="pages" maxlength="150" placeholder="Ex.: 45-68"></label>
+            <label class="field full" data-field="doi"><span>DOI</span><input name="doi" maxlength="300" placeholder="10.xxxx/xxxx"></label>
+            <label class="field full" data-field="translator"><span>Tradutor(es)</span><input name="translator" maxlength="300"></label>
+            <label class="field full" data-field="url"><span>URL / fonte</span><input name="url" maxlength="1000" type="url" placeholder="https://"></label>
+          </div>
+
+          <div class="section-heading">
+            <span>03</span>
+            <div><h2>Organização no Citame</h2><p>Use coleções e palavras-chave para facilitar a localização.</p></div>
+          </div>
+
+          <div class="form-grid">
+            <label class="field"><span>Coleção</span><input name="collection" maxlength="300" value="Geral"></label>
+            <label class="field"><span>Palavras-chave</span><input name="tags" maxlength="1000" placeholder="Teologia, Antigo Testamento"></label>
+            <label class="field full"><span>Notas internas</span><textarea name="notes" rows="3" maxlength="10000" placeholder="Informações adicionais que acompanharão a obra"></textarea></label>
+          </div>
+
+          <div id="form-error" class="message error-message" role="alert" hidden></div>
+          <div class="form-actions">
+            <button id="cancel-button" class="secondary-button" type="button">Cancelar</button>
+            <button id="save-button" class="primary-button" type="submit">
+              <span class="button-label">Criar arquivos para importar</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form>
+
+        <div id="success-panel" class="success-panel" hidden>
+          <div class="success-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></div>
+          <div class="eyebrow">Cadastro concluído</div>
+          <h2>Arquivos prontos para importar</h2>
+          <p>O PDF e os metadados foram adicionados à fila. A lista contém <strong><span id="result-count">1</span> obra(s)</strong>.</p>
+          <div class="created-files">
+            <div><span>PDF</span><strong id="result-pdf"></strong></div>
+            <div><span>METADADOS</span><strong id="result-json"></strong></div>
+          </div>
+          <button id="new-work" class="primary-button" type="button">Adicionar outra obra</button>
+        </div>
+      </section>
+
+      <section class="recent-section" aria-labelledby="recent-title">
+        <div class="recent-heading">
+          <div><div class="eyebrow">Fila de importação</div><h2 id="recent-title">Obras preparadas</h2></div>
+          <div id="queue-count" class="queue-count">0 de 10</div>
+        </div>
+        <p id="queue-limit-note" class="limit-note" hidden>Limite de 10 obras atingido. Baixe o ZIP para iniciar uma nova fila.</p>
+        <div id="works-list" class="works-list"><p class="empty-state">Nenhuma obra na fila.</p></div>
+        <button id="download-works" class="download-button" type="button" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 20h14"/></svg>
+          <span class="download-label">Baixar obras em ZIP</span>
+          <span class="download-spinner" aria-hidden="true"></span>
+        </button>
+        <p class="privacy-note">A fila fica somente nesta aba. Depois do download, ela é zerada automaticamente.</p>
+      </section>
+    </main>
+
+    <footer>
+      <span>Cadastrar</span>
+      <span>Cria arquivos compatíveis com o Citame diretamente no navegador</span>
+    </footer>
+  </div>
+  <script src="./app.js" defer></script>
+</body>
+</html>
